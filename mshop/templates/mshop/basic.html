@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      #footer{
+  text-align: center;
+  padding-bottom: 10px;
+  background-color: #343a40;
+  margin-top:50px;
+}
+.iconf{
+  padding: 1.5% 7px 1%;
+}
+.twit{
+  color:#60c2ff
+}
+.face{
+  color:#3838ff
+}
+
+.inst{
+  color: #ff78d4
+}
+.maill{
+  color:#ff6077
+}
+    </style>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/693bf2f458.js" crossorigin="anonymous"></script>
+    {% block icon %}
+    {% endblock %}
+    <title>{% block title %} {% endblock %}</title>
+      <style>
+    {% block css %} 
+    {% endblock %}
+  </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {% load static %}
+  <a class="navbar-brand" href="/mshop"><img style="height: 40px;"  class="milmaN" src="{%static 'mshop/milmaN.jpeg' %}"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/mshop">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/mshop/about">About Us</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/mshop/tracker">Tracker</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/mshop/contact">Contact Us</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+      <button class="btn btn-outline-success my-2 my-sm-0 mr-3" type="submit">Search</button>
+    </form>
+    {% block signup %}
+    {% endblock %}
+    
+    <!-- <button type="button" class="btn btn-secondary mx-2" id="popcart1" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-html="true" data-bs-content="Bottom popover">
+Cart(<span id="cart1">0</span>)
+</button> -->
+<button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true">
+Cart(<span id="cart">0</span>)
+</button>
+
+  </div>
+</nav>
+
+{% block body %} {% endblock %}
+
+<footer id="footer">
+
+  <i class="iconf twit fab fa-twitter"></i>
+  <i class="iconf face fab fa-facebook-f"></i>
+  <i class="iconf inst fab fa-instagram"></i>
+  <i class="iconf maill fas fa-envelope"></i>
+  <p><span style="color:#eaf7ff;">© Copyright Milma</span></p>
+
+</footer>
+
+
+
+   <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+  src="https://code.jquery.com/jquery-3.6.3.js"
+  integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script>$(function () {
+      $('[data-toggle="popover"]').popover()
+    })</script>
+  {% block js %}
+{% endblock %}
+
+  </body>
+</html>

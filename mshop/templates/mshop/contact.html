@@ -1,0 +1,43 @@
+{% extends 'mshop/basic.html' %}
+
+{% block title %} Contact {% endblock %}
+{% block body %}
+<div class="container my-3">
+    <h3>Contact us regarding any query</h3>
+   <form action = "/mshop/contact/" method="post">{% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="form-label">Your Name</label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name" aria-describedby="nameUser">
+  </div>
+       <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email address" aria-describedby="emailHelp">
+  </div>
+       <div class="mb-3">
+    <label for="phone" class="form-label">Your Phone number (with country code)</label>
+    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter phone number" aria-describedby="phoneUser">
+  </div>
+
+       <div class="mb-3">
+    <label for="description" class="form-label">How we may help you?</label><br>
+    <textarea class="form-control" name="desc" id="description" placeholder="Description" rows="4" cols="50"></textarea>
+  </div>
+
+
+  <div style="margin:auto;" class="subContact">
+      <button  type="submit" class="btn btn-success">Submit</button>
+  </div>
+</form>
+</div>
+<br>
+{% endblock %}
+
+{% block js %}
+<script>
+    {% if thank %}
+    alert('Thanks contacting us. We will get in touch with you soon.');
+    localStorage.clear();
+    document.location= "/mshop/contact";
+    {% endif %}
+</script>
+{% endblock %}

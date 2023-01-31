@@ -1,0 +1,125 @@
+{% extends 'mshop/basic.html' %}
+
+{% block title %}  My Awesome Cart Express Tracker {% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="col my-4">
+    <h2>Enter your order_id and email address to track your order</h2>
+    <form class="row g-3" action="#" id="trackerForm" method="post">{% csrf_token %}
+
+      <div class="col-md-6">
+        <label for="inputname" class="form-label">Order id</label>
+        <input type="text" class="form-control" id="orderid" name="orderid" placeholder="Order id">
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email adddress">
+      </div>
+      <div class="col-12 my-3">
+        <button type="submit" class="btn btn-primary">Track Order</button>
+      </div>
+  </div>
+  <div class="col my-2">
+    <h2>Your order status</h2>
+    <div class="my-4">
+      <ol class="list-group list-group-numbered" id="citems">
+        Enter your order ID and email and click on track order to find your order details.
+      </ol>
+    </div>
+    <div class="col my-2">
+    <h2>Your order details</h2>
+    <div class="my-4">
+      <ol class="list-group list-group-numbered" id="items">
+        Enter your order ID and email and click on track order to find your order details.
+      </ol>
+    </div>
+
+  </div>
+
+</div>
+<br>
+<br>
+<br>
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+   {% if user.is_authenticated %}
+$('#trackerForm').submit(function(event){
+    $('items').empty();
+    var formData = {
+        'orderid':$('input[name=orderid]').val(),
+        'email':$('input[name=email]').val(),
+        'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+        type:'POST',
+        url: '/mshop/tracker/',
+        data: formData,
+        encode: true
+    })
+    .done(function(data){
+        console.log(data);
+        data = JSON.parse(data);
+        updates = data[0];
+        if (updates.length>0 & updates!={}){
+
+      for (i=0;i<updates.length; i++) {
+    let text = updates[i]['text'];
+    let time = updates[i]['time'];
+    mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">
+          ${text}
+        </div>
+      </div>
+      <span class="badge bg-primary rounded-pill">${time}</span>
+    </li>`
+    $('#items').append(mystr);
+    }
+  }
+  else{
+   mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">
+          Sorry, we are not able to fetch this order id and email. Make sure to enter correct data.
+        </div>
+      </div>
+    </li>`
+    $('#items').append(mystr);
+  }
+
+  //Fill in the order details
+ 
+  cart = JSON.parse(data[1]);
+  console.log(cart);
+    for (item in cart) {
+
+    let name = cart[item][1];
+    let qty = cart[item][0];
+
+
+
+    mystr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">
+          ${name}
+        </div>
+      </div>
+      <span class="badge bg-primary rounded-pill">${qty}</span>
+    </li>`
+    $('#citems').append(mystr);
+  }
+    });
+    event.preventDefault();
+})
+{% else %}
+alert("Login first to track your order");
+window.location.replace("../");
+{% endif %}
+</script>
+
+{% endblock %}
